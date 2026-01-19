@@ -33,12 +33,49 @@ export interface BlockTestimonial extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsLinks extends Struct.ComponentSchema {
+  collectionName: 'components_elements_links';
+  info: {
+    displayName: 'Links';
+  };
+  attributes: {
+    href: Schema.Attribute.String;
+    text: Schema.Attribute.String;
+  };
+}
+
+export interface ElementsLogoLink extends Struct.ComponentSchema {
+  collectionName: 'components_elements_logo_links';
+  info: {
+    displayName: 'logoLink';
+  };
+  attributes: {
+    href: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface LayoutHeader extends Struct.ComponentSchema {
+  collectionName: 'components_layout_headers';
+  info: {
+    displayName: 'Header';
+  };
+  attributes: {
+    logoLink: Schema.Attribute.Component<'elements.logo-link', false>;
+    topnav: Schema.Attribute.Component<'elements.links', true>;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'block.rich-text': BlockRichText;
       'block.spoiler': BlockSpoiler;
       'block.testimonial': BlockTestimonial;
+      'elements.links': ElementsLinks;
+      'elements.logo-link': ElementsLogoLink;
+      'layout.header': LayoutHeader;
     }
   }
 }
